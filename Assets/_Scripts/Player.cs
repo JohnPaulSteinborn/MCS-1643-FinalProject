@@ -1,93 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //movement
-    public float moveSpeed = 4.0f;
-    public float horizontalLaunchMultiplier = 4f;
-
-    //jump charge
-    public float maxJumpCharge = 1.5f;
-    public float minJumpForce = 6f;
-    public float maxJumpForce = 18f;
-
-    //ground check
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.1f;
-    public LayerMask groundLayer;
-
+    public float walkSpeed;
+    private float moveInput;
+    public bool isGrounded;
     private Rigidbody2D rb;
-    private bool onGround = false;
-    private float lastMoveInput = 0f;
-    public float jumpCharge = 0f;
-    private bool isCharging = false;
+    public BoxCollider2D groundCollider;
 
-    void Start()
+    public PhysicsMaterial2D bounceMat, normalMat;
+    public bool canJump = true;
+    public float jumpValue = 0.0f;
+
+    private void Start()
     {
-       rb = GetComponent<Rigidbody2D>(); 
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        
-    }
+        moveInput = Input.GetAxisRaw("Horizontal");
 
-    void GroundCheck()
-    {
-        //check if player is on ground
-        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-    }
-
-    void MovementControl()
-    {
-        float input = Input.GetAxisRaw("Horizontal");
-
-        if (onGround)
+        if(jumpValue == 0.0f && isGrounded)
         {
-            rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
-            if (input != 0)
+            rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
+        }
+
+        if(jumpValue > 0)
+        {
+            rb.sharedMaterial = bounceMat;
+        }
+        else
+        {
+            rb.sharedMaterial = normalMat;
+        }
+
+        if(Input.GetKey("space") && isGrounded && canJump)
+        {
+            jumpValue += 0.1f;
+        }
+
+        if(Input.GetKeyDown("space") && isGrounded && canJump)
+        {
+            rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        }
+
+        if(jumpValue >= 20f && isGrounded)
+        {
+            float tempx = moveInput * walkSpeed;
+            float tempy = jumpValue;
+            rb.velocity = new Vector2(tempx, tempy);
+            Invoke("ResetJump", 0.2f);
+        }
+
+        if(Input.GetKeyUp("space"))
+        {
+            if(isGrounded)
             {
-                lastMoveInput = input;
+                rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
+                jumpValue = 0.0f;
             }
+            canJump = true;
         }
     }
 
-    void JumpCharge()
+    void ResetJump()
     {
-        if (onGround && Input.GetButtonDown("Jump"))
-        {
-            isCharging = true;
-            jumpCharge = 0f;
-        }
-        if (isCharging && Input.GetButton("Jump"))
-        {
-            jumpCharge += Time.deltaTime;
-            //puts max limit on player's jump charge
-            jumpCharge = Mathf.Clamp(jumpCharge, 0f, maxJumpCharge);
-        }
+        canJump = false;
+        jumpValue = 0;
     }
 
-    void JumpRelease()
+    private bool IsGrounded()
     {
-        if (isCharging && Input.GetButtonUp("Jump"))
-        {
-            isCharging = false;
-
-            float t = jumpCharge / maxJumpCharge;
-            //smooths position over jump
-            float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, t);
-
-            //vertical launch
-            float verticalVel = jumpForce;
-
-            //horizontal launch
-            float horizontalVel = lastMoveInput * horizontalLaunchMultiplier;
-
-            rb.velocity = new Vector2(horizontalVel, verticalVel);
-
-            jumpCharge = 0f;
-        }
+        return groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 }
