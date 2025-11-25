@@ -24,11 +24,13 @@ public class Player : MonoBehaviour
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        if(jumpValue == 0.0f && isGrounded)
+        //if (jumpValue == 0.0f && isGrounded)
+        if (jumpValue < 0.001f && IsGrounded())
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
 
+        //implement oncollisionenter
         if(jumpValue > 0)
         {
             rb.sharedMaterial = bounceMat;
@@ -38,32 +40,32 @@ public class Player : MonoBehaviour
             rb.sharedMaterial = normalMat;
         }
 
-        if(Input.GetKey("space") && isGrounded && canJump)
+        if (IsGrounded())
         {
-            jumpValue += 0.1f;
-        }
 
-        if(Input.GetKeyDown("space") && isGrounded && canJump)
-        {
-            rb.velocity = new Vector2(0.0f, rb.velocity.y);
-        }
+            if (Input.GetKey("space") && canJump)
+            {
+                jumpValue += 0.25f;
+            }
 
-        if(jumpValue >= 20f && isGrounded)
-        {
-            float tempx = moveInput * walkSpeed;
-            float tempy = jumpValue;
-            rb.velocity = new Vector2(tempx, tempy);
-            Invoke("ResetJump", 0.2f);
-        }
+            if (Input.GetKeyDown("space") && canJump)
+            {
+                rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            }
 
-        if(Input.GetKeyUp("space"))
-        {
-            if(isGrounded)
+            if (jumpValue >= 20f)
+            {
+                float tempx = moveInput * walkSpeed;
+                float tempy = jumpValue;
+                rb.velocity = new Vector2(tempx, tempy);
+                Invoke("ResetJump", 0.2f);
+            }
+            if (Input.GetKeyUp("space"))
             {
                 rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
                 jumpValue = 0.0f;
+                canJump = true;
             }
-            canJump = true;
         }
     }
 
