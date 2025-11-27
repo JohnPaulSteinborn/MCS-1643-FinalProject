@@ -2245,7 +2245,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 4
-      m_TileSpriteIndex: 4
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2255,7 +2255,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2335,19 +2335,27 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 66e3ccd8cf1ddb645a4768bd69ff88b5, type: 2}
   - m_RefCount: 168
     m_Data: {fileID: 11400000, guid: a7ab2a8614864954b87d544ffd2cb880, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: -1298644646, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 5
     m_Data: {fileID: 107349373, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
   - m_RefCount: 24
     m_Data: {fileID: 771172890, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: -1040946367, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1268501495, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 168
     m_Data: {fileID: -296169347, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -1298644646, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -1268501495, guid: 0671437815cd36748906c51c7fda9b51, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 204
     m_Data:
@@ -2473,9 +2481,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315801c3bb927fc4fbf8a62e7a2f2b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0
+  walkSpeed: 5
   isGrounded: 0
-  groundCollider: {fileID: 0}
+  groundCollider: {fileID: 953260515}
   bounceMat: {fileID: 6200000, guid: 517d88ed853e6064c9d83b006c162a50, type: 2}
   normalMat: {fileID: 6200000, guid: 97f82060f8926e542928aeddc0f088cc, type: 2}
   canJump: 1
@@ -3050,11 +3058,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8010b3e5cec20439e8e78a5dffc1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 8
   zDistance: 10
-  allowableOffset: 3
-  topLeft: {x: 0, y: 0}
-  bottomRight: {x: 0, y: 0}
+  allowableOffset: 2
+  topLeft: {x: -6, y: 100}
+  bottomRight: {x: 7, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

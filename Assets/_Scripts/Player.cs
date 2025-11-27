@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey("space") && canJump)
             {
-                jumpValue += 0.25f;
+                jumpValue += 0.2f;
             }
 
             if (Input.GetKeyDown("space") && canJump)
