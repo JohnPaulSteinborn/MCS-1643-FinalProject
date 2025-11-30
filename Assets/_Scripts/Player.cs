@@ -1,71 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float walkSpeed;
+    public float walkSpeed = 5f;
     private float moveInput;
-    public bool isGrounded;
-    private Rigidbody2D rb;
-    public BoxCollider2D groundCollider;
 
-    public PhysicsMaterial2D bounceMat, normalMat;
+    public bool isGrounded;
+    public float jumpValue = 0f;
     public bool canJump = true;
-    public float jumpValue = 0.0f;
+
+    public Transform groundCheck;
+    public LayerMask groundMask;
+    public float groundCheckRadius = 0.2f;
+
+    public PhysicsMaterial2D bounceMat;
+    public PhysicsMaterial2D normalMat;
+
+    private Rigidbody2D rb;
+    private Collider2D col;
 
     private void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        //if (jumpValue == 0.0f && isGrounded)
-        if (jumpValue < 0.001f && IsGrounded())
+        // Ground check
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
+
+        // Swap physics material
+        col.sharedMaterial = (jumpValue > 0f) ? bounceMat : normalMat;
+
+        HandleMovement();
+        HandleJumpCharging();
+        HandleJumpRelease();
+    }
+
+    void HandleMovement()
+    {
+        if (isGrounded && jumpValue == 0f)
         {
+            // Normal walking on ground
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
-
-        //implement oncollisionenter
-        if(jumpValue > 0)
+        else if (!isGrounded)
         {
-            rb.sharedMaterial = bounceMat;
+            // Allows sliding off walls instead of sticking
+            rb.velocity = new Vector2(moveInput * 1f, rb.velocity.y);
         }
-        else
+    }
+
+    void HandleJumpCharging()
+    {
+        if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {
-            rb.sharedMaterial = normalMat;
+            jumpValue += 0.1f;
         }
 
-        if (IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
         {
+            // Reset horizontal movement while charging
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+        }
 
-            if (Input.GetKey("space") && canJump)
-            {
-                jumpValue += 0.2f;
-            }
+        // Automatically launch if charged too long
+        if (jumpValue >= 20f && isGrounded)
+        {
+            rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
+            Invoke(nameof(ResetJump), 0.2f);
+        }
+    }
 
-            if (Input.GetKeyDown("space") && canJump)
-            {
-                rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            }
-
-            if (jumpValue >= 20f)
-            {
-                float tempx = moveInput * walkSpeed;
-                float tempy = jumpValue;
-                rb.velocity = new Vector2(tempx, tempy);
-                Invoke("ResetJump", 0.2f);
-            }
-            if (Input.GetKeyUp("space"))
+    void HandleJumpRelease()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (isGrounded)
             {
                 rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
-                jumpValue = 0.0f;
-                canJump = true;
+                jumpValue = 0f;
             }
+
+            canJump = true;
         }
     }
 
@@ -73,10 +95,5 @@ public class Player : MonoBehaviour
     {
         canJump = false;
         jumpValue = 0;
-    }
-
-    private bool IsGrounded()
-    {
-        return groundCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 }

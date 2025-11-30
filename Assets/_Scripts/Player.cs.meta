@@ -3,7 +3,10 @@ guid: 315801c3bb927fc4fbf8a62e7a2f2b6e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - groundCollider: {instanceID: 0}
+  - bounceMat: {fileID: 6200000, guid: 517d88ed853e6064c9d83b006c162a50, type: 2}
+  - normalMat: {fileID: 6200000, guid: 97f82060f8926e542928aeddc0f088cc, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
