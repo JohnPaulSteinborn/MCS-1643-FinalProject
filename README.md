@@ -40,7 +40,8 @@
 **3. Any assets used that you didn't create yourself?**   
 
 > &nbsp;
-><i>Dungeon Tile Set (https://incolgames.itch.io/dungeon-platformer-tile-set-pixel-art)</i>   
+><i>Dungeon Tile Set (https://incolgames.itch.io/dungeon-platformer-tile-set-pixel-art)</i>  
+><i>Old Church Bell (no noise) by igroglaz -- https://freesound.org/s/633208/ -- License: Creative Commons 0</i> 
 > &nbsp;
  
 
