@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.15f, groundMask);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.25f, groundMask);
 
         if (!isGrounded || jumpValue > 0)
         {

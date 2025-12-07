@@ -48,21 +48,16 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator FallRoutine()
     {
-        // Wait before the fall
         yield return StartCoroutine(ShakePlatform());
 
-        // Start falling
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.gravityScale = fallGravityScale;
 
-        // Disable collision so it doesn't get stuck on walls
         yield return new WaitForSeconds(0.2f);
         col.enabled = false;
 
-        // Wait for respawn time
         yield return new WaitForSeconds(respawnDelay);
 
-        // Reset platform state
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
