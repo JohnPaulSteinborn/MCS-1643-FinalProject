@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         }
 
         // When jumpValue reaches full charge and you're still grounded
-        if (jumpValue >= 20f && isGrounded)
+        if (jumpValue >= 15f && isGrounded)
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
             Invoke(nameof(ResetJump), 0.2f);
