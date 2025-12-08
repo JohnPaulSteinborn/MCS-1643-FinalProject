@@ -41,7 +41,8 @@
 
 > &nbsp;
 ><i>Dungeon Tile Set (https://incolgames.itch.io/dungeon-platformer-tile-set-pixel-art)</i>  
-><i>Old Church Bell (no noise) by igroglaz -- https://freesound.org/s/633208/ -- License: Creative Commons 0</i> 
+><i>Old Church Bell (no noise) by igroglaz -- https://freesound.org/s/633208/ -- License: Creative Commons 0</i>
+><i> Pixel Art Platformer - Village Props (https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114#description)</i> 
 > &nbsp;
  
 

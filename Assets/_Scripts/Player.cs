@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         if (jumpValue >= 15f && isGrounded)
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
-            Invoke(nameof(ResetJump), 0.2f);
+            Invoke(nameof(ResetJump), 0.0f);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
