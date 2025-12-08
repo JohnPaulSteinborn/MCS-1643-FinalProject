@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7402941757532486686}
   - component: {fileID: 4903603770641375699}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FallingPlatformLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6149115881959434704}
   - component: {fileID: 3988244719533180632}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FallingPlatformCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 737597381751680676}
   - component: {fileID: 4414515365604239827}
   - component: {fileID: 1678432819606525314}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FallingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63dacb53801b3d439c313752428fd7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallDelay: 5
+  fallDelay: 2.5
   respawnDelay: 2
   fallGravityScale: 5
 --- !u!50 &1678432819606525314
@@ -302,7 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 896235931426077188}
   - component: {fileID: 7212027807578320011}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FallingPlatformRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -33,7 +33,11 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.0f, groundMask);
+        bool left = Physics2D.Raycast(transform.position + new Vector3(-0.2f, 0, 0), Vector2.down, 0.6f, groundMask);
+        bool mid = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundMask);
+        bool right = Physics2D.Raycast(transform.position + new Vector3(0.2f, 0, 0), Vector2.down, 0.6f, groundMask);
+
+        isGrounded = left || mid || right;
 
         if (!isGrounded || jumpValue > 0)
         {
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {
-            jumpValue += 0.2f;
+            jumpValue += 0.25f;
             // Reset horizontal velocity for consistency
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
