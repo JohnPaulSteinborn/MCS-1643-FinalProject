@@ -33,9 +33,9 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
 
-        bool left = Physics2D.Raycast(transform.position + new Vector3(-0.2f, 0, 0), Vector2.down, 0.6f, groundMask);
+        bool left = Physics2D.Raycast(transform.position + new Vector3(-0.45f, 0, 0), Vector2.down, 0.6f, groundMask);
         bool mid = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundMask);
-        bool right = Physics2D.Raycast(transform.position + new Vector3(0.2f, 0, 0), Vector2.down, 0.6f, groundMask);
+        bool right = Physics2D.Raycast(transform.position + new Vector3(0.45f, 0, 0), Vector2.down, 0.6f, groundMask);
 
         isGrounded = left || mid || right;
 

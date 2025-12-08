@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class FollowCam : MonoBehaviour
@@ -9,52 +6,55 @@ public class FollowCam : MonoBehaviour
     public float zDistance = 10.0f;
     public float allowableOffset = 3.0f;
 
+    // These define the *playable* area
     public Vector2 topLeft;
     public Vector2 bottomRight;
 
     private GameObject player;
+    private Camera cam;
 
-    // Improvements to consider:
-    // - Easing movement at start and end
-    // - Catching up more quickly if player is too far from center
-
-
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        cam = GetComponent<Camera>();
+
         transform.position = player.transform.position + Vector3.back * zDistance;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if (Vector3.Distance(transform.position, player.transform.position + Vector3.back * zDistance) > allowableOffset)
+        Vector3 targetPos = player.transform.position + Vector3.back * zDistance;
+
+        // Smooth follow only if we pass the allowable distance
+        if (Vector3.Distance(transform.position, targetPos) > allowableOffset)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position + Vector3.back * zDistance, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         }
+
+        // Now clamp to bounds using camera size
+        ClampCameraToBounds();
+    }
+
+    void ClampCameraToBounds()
+    {
+        float camHeight = cam.orthographicSize;
+        float camWidth = camHeight * cam.aspect;
 
         Vector3 pos = transform.position;
 
-        if (pos.x < topLeft.x)
-        {
-            pos.x = topLeft.x;
-        }
-        else if (pos.x > bottomRight.x)
-        {
-            pos.x = bottomRight.x;
-        }
+        // Clamp LEFT and RIGHT
+        pos.x = Mathf.Clamp(
+            pos.x,
+            topLeft.x + camWidth,
+            bottomRight.x - camWidth
+        );
 
-        if (pos.y > topLeft.y)
-        {
-            pos.y = topLeft.y;
-        }
-        else if (pos.y < bottomRight.y)
-        {
-            pos.y = bottomRight.y;
-        }
-
-        pos.z = player.transform.position.z - zDistance;
+        // Clamp TOP and BOTTOM
+        pos.y = Mathf.Clamp(
+            pos.y,
+            bottomRight.y + camHeight,
+            topLeft.y - camHeight
+        );
 
         transform.position = pos;
     }
