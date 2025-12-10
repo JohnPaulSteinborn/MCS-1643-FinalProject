@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     public float jumpValue = 0f;
+    public float maxJumpValue = 15f;
     public bool canJump = true;
 
     public PhysicsMaterial2D bounceMat;
@@ -51,12 +52,13 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {
             jumpValue += 0.25f;
+            jumpValue = Mathf.Clamp(jumpValue, 0f, maxJumpValue);
             // Reset horizontal velocity for consistency
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
         // When jumpValue reaches full charge and you're still grounded
-        if (jumpValue >= 15f && isGrounded)
+        if (jumpValue >= maxJumpValue && isGrounded)
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, jumpValue);
             Invoke(nameof(ResetJump), 0.0f);
