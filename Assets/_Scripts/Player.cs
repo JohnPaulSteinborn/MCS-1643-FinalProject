@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Animator anim;
+
     public float walkSpeed = 5f;
     private float moveInput;
 
@@ -19,9 +21,16 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private AudioSource audioSrc;
+    public AudioClip jumpSound;
+    public AudioClip groundSound;
+    public AudioClip chargeSound;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        audioSrc = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -32,6 +41,14 @@ public class Player : MonoBehaviour
         if (jumpValue == 0f && isGrounded)
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
+            if (moveInput > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            } 
+            else if (moveInput < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
 
         bool left = Physics2D.Raycast(transform.position + new Vector3(-0.45f, 0, 0), Vector2.down, 0.6f, groundMask);
@@ -57,6 +74,16 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
+        {
+            audioSrc.PlayOneShot(chargeSound);
+        }
+
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            audioSrc.PlayOneShot(jumpSound);
+        }
+
         // When jumpValue reaches full charge and you're still grounded
         if (jumpValue >= maxJumpValue && isGrounded)
         {
@@ -73,6 +100,18 @@ public class Player : MonoBehaviour
             }
 
             canJump = true;
+        }
+
+        anim.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("verticalVelocity", rb.velocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(isGrounded)
+        {
+            audioSrc.PlayOneShot(groundSound);
         }
     }
 
