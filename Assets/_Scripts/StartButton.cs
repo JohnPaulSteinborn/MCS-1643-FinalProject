@@ -16,5 +16,6 @@ public class StartButton : MonoBehaviour
         audioSrc.Play();
         SceneManager.LoadScene("_Scene_0");
         GameManager.StartGame();
+        Time.timeScale = 1;
     }
 }
