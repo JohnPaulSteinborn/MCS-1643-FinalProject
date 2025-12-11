@@ -7,24 +7,11 @@
 
 <br>
 
-#### Questions for tutorial assignments: (remove this section for projects)
-**Which tutorial is this? **
-
-**1. Did you make any additions beyond the tutorial requirements? If so, what?**
-> &nbsp;
-><i>(let me know what to look for, any additional keys to use, etc.)</i>   
-> &nbsp;
-
-**2. Did anything give you particular trouble?
-> &nbsp;
-><i>(If something in your assignment doesn't work or you think part of the tutorial can be improved, explain here)</i>   
-> &nbsp;
-
 #### Questions for projects: (remove this section for tutorial assignments)
 **1. What are the controls to your game? How do we play?**   
 
 > &nbsp;
-><i>(art, music, etc. Just tell us where you got it, link it here)</i>   
+><i>Used A, D, left, or right arrow keys to move, hold spacebar to charge jump</i>   
 > &nbsp;
  
 
@@ -42,7 +29,10 @@
 > &nbsp;
 ><i>Dungeon Tile Set (https://incolgames.itch.io/dungeon-platformer-tile-set-pixel-art)</i>  
 ><i>Old Church Bell (no noise) by igroglaz -- https://freesound.org/s/633208/ -- License: Creative Commons 0</i>
-><i> Pixel Art Platformer - Village Props (https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114#description)</i> 
+><i>Pixel Art Platformer - Village Props (https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114#description)</i> 
+><i>Free Character - Satyr by LuckyLoops (https://lucky-loops.itch.io/character-satyr)</i>
+><i> jsfxr - 8 bit sound maker and online sfx generator (https://sfxr.me/)</i>
+><i> Swans - Red Velvet Corridor (https://www.youtube.com/watch?v=iQ3MA15BTb4)</i>
 > &nbsp;
  
 
@@ -50,7 +40,7 @@
 **4. Did you receive help from anyone outside this class or from anyone in this class that is not in a group with you?**   
 
 > &nbsp;
-><i>(list their names and what they helped with)</i>   
+><i>Used this tutorial to implement the basic jumping system (https://www.youtube.com/watch?v=o4Z99Xi5xXc)</i>   
 > &nbsp;
  
 
@@ -58,7 +48,7 @@
 **5. Did you get help from any AI Code Assistants?**   
 
 > &nbsp;
-><i>(Including things like Chat-GPT, Copilot, etc. Tell us which .cs file to look in for the citation and describe what you learned)</i>   
+><i>Used ChatGPT for help with the falling platforms, it helped me understand how to set up the IEnumerator and coroutine to make the platforms shake</i>   
 > &nbsp;
  
 
